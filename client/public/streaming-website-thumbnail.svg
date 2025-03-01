@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <!-- Gradient Background -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#080808;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#181818;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="glowGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#37c96f;stop-opacity:0.2" />
+      <stop offset="100%" style="stop-color:#37c96f;stop-opacity:0" />
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="10" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  
+  <!-- Background with texture -->
+  <rect width="800" height="450" fill="url(#bgGradient)"/>
+  <rect width="800" height="450" fill="#111111" opacity="0.7">
+    <animate attributeName="opacity" values="0.7;0.6;0.7" dur="4s" repeatCount="indefinite" />
+  </rect>
+  
+  <!-- Abstract network/grid pattern -->
+  <g opacity="0.15">
+    <line x1="0" y1="50" x2="800" y2="50" stroke="#444444" stroke-width="1" />
+    <line x1="0" y1="150" x2="800" y2="150" stroke="#444444" stroke-width="1" />
+    <line x1="0" y1="250" x2="800" y2="250" stroke="#444444" stroke-width="1" />
+    <line x1="0" y1="350" x2="800" y2="350" stroke="#444444" stroke-width="1" />
+    <line x1="200" y1="0" x2="200" y2="450" stroke="#444444" stroke-width="1" />
+    <line x1="400" y1="0" x2="400" y2="450" stroke="#444444" stroke-width="1" />
+    <line x1="600" y1="0" x2="600" y2="450" stroke="#444444" stroke-width="1" />
+  </g>
+  
+  <!-- Glow effect behind central element -->
+  <circle cx="400" cy="195" r="100" fill="url(#glowGradient)" opacity="0.5">
+    <animate attributeName="opacity" values="0.5;0.7;0.5" dur="3s" repeatCount="indefinite" />
+  </circle>
+  
+  <!-- Central camera device - more modern and detailed -->
+  <g>
+    <!-- Camera body -->
+    <rect x="330" y="150" width="140" height="90" rx="10" fill="#222222" stroke="#333333" stroke-width="2"/>
+    <rect x="335" y="155" width="130" height="80" rx="8" fill="#1a1a1a" stroke="#2a2a2a" stroke-width="1"/>
+    
+    <!-- Lens -->
+    <circle cx="400" cy="195" r="28" fill="#1a1a1a" stroke="#37c96f" stroke-width="2">
+      <animate attributeName="stroke-opacity" values="1;0.7;1" dur="2s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="400" cy="195" r="22" fill="#222222" stroke="#333333" stroke-width="1"/>
+    <circle cx="400" cy="195" r="15" fill="#37c96f" opacity="0.9"/>
+    <circle cx="400" cy="195" r="8" fill="#2a2a2a"/>
+    <circle cx="400" cy="195" r="4" fill="#37c96f">
+      <animate attributeName="opacity" values="0.9;1;0.9" dur="1.5s" repeatCount="indefinite" />
+    </circle>
+    
+    <!-- Camera details -->
+    <rect x="360" y="150" width="80" height="12" rx="4" fill="#222222" stroke="#333333" stroke-width="1"/>
+    <circle cx="455" cy="170" r="5" fill="#37c96f" opacity="0.8"/>
+  </g>
+  
+  <!-- Animated pulse rings -->
+  <g opacity="0.5">
+    <circle cx="400" cy="195" r="40" fill="none" stroke="#37c96f" stroke-width="1" opacity="0.2">
+      <animate attributeName="r" values="40;100;40" dur="4s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0.2;0;0.2" dur="4s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="400" cy="195" r="50" fill="none" stroke="#37c96f" stroke-width="1" opacity="0.1">
+      <animate attributeName="r" values="50;120;50" dur="5s" repeatCount="indefinite" />
+      <animate attributeName="opacity" values="0.1;0;0.1" dur="5s" repeatCount="indefinite" />
+    </circle>
+  </g>
+  
+  <!-- Advanced Live indicator -->
+  <g>
+    <rect x="310" y="260" width="180" height="40" rx="20" fill="#111111" stroke="#37c96f" stroke-width="2"/>
+    <rect x="315" y="265" width="170" height="30" rx="15" fill="#1a1a1a"/>
+    <circle cx="340" cy="280" r="10" fill="#37c96f">
+      <animate attributeName="opacity" values="1;0.7;1" dur="1s" repeatCount="indefinite" />
+    </circle>
+    <text x="400" y="285" font-family="Arial, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="white">LIVE NOW</text>
+  </g>
+  
+  <!-- More dynamic streaming beams -->
+  <g>
+    <path d="M250,195 Q325,175 380,195" stroke="#37c96f" stroke-width="1.5" stroke-dasharray="4 2" fill="none">
+      <animate attributeName="stroke-opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite" />
+    </path>
+    <path d="M420,195 Q500,175 550,195" stroke="#37c96f" stroke-width="1.5" stroke-dasharray="4 2" fill="none">
+      <animate attributeName="stroke-opacity" values="1;0.6;1" dur="2s" repeatCount="indefinite" />
+    </path>
+  </g>
+  
+  <!-- Upgraded receiving devices -->
+  <g>
+    <!-- Phone -->
+    <rect x="180" y="170" width="50" height="70" rx="5" fill="#1a1a1a" stroke="#333333" stroke-width="1"/>
+    <rect x="185" y="178" width="40" height="50" rx="2" fill="#222222"/>
+    <rect x="190" y="183" width="30" height="40" rx="1" fill="#333333"/>
+    <rect x="195" y="188" width="20" height="30" rx="1" fill="#37c96f" opacity="0.4">
+      <animate attributeName="opacity" values="0.4;0.6;0.4" dur="3s" repeatCount="indefinite" />
+    </rect>
+    <circle cx="205" cy="250" r="4" fill="#333333"/>
+    
+    <!-- Tablet -->
+    <rect x="560" y="160" width="70" height="90" rx="5" fill="#1a1a1a" stroke="#333333" stroke-width="1"/>
+    <rect x="565" y="168" width="60" height="70" rx="2" fill="#222222"/>
+    <rect x="570" y="173" width="50" height="60" rx="1" fill="#37c96f" opacity="0.3">
+      <animate attributeName="opacity" values="0.3;0.5;0.3" dur="3.5s" repeatCount="indefinite" />
+    </rect>
+    <circle cx="595" cy="255" r="4" fill="#333333"/>
+  </g>
+  
+  <!-- Main headline and tagline with subtle animation -->
+  <g>
+    <text x="400" y="340" font-family="Arial, sans-serif" font-size="36" font-weight="bold" text-anchor="middle" fill="white">GO LIVE IN SECONDS</text>
+    <text x="400" y="342" font-family="Arial, sans-serif" font-size="36" font-weight="bold" text-anchor="middle" fill="#37c96f" opacity="0.3">GO LIVE IN SECONDS</text>
+    
+    <text x="400" y="375" font-family="Arial, sans-serif" font-size="18" font-weight="medium" text-anchor="middle" fill="#37c96f">Stream with simplicity. Connect with ease.</text>
+  </g>
+  
+  <!-- Elegant corner design elements -->
+  <g>
+    <path d="M50,50 L80,50 L80,80" fill="none" stroke="#37c96f" stroke-width="1.5" opacity="0.5"/>
+    <path d="M750,50 L720,50 L720,80" fill="none" stroke="#37c96f" stroke-width="1.5" opacity="0.5"/>
+    <path d="M50,400 L80,400 L80,370" fill="none" stroke="#37c96f" stroke-width="1.5" opacity="0.5"/>
+    <path d="M750,400 L720,400 L720,370" fill="none" stroke="#37c96f" stroke-width="1.5" opacity="0.5"/>
+  </g>
+</svg>
