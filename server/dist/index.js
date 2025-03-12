@@ -1,0 +1,75 @@
+import http from "http";
+import express from "express";
+import { Server as SocketIO } from "socket.io";
+import {
+  startFFmpegStream,
+  writeStreamData,
+  stopFFmpegStream,
+} from "./ffmpeg.js";
+import cors from "cors";
+import dotenv from "dotenv";
+dotenv.config();
+const app = express();
+const PORT = process.env.PORT || 3000;
+const CORS_ORIGIN = process.env.CORS_ORIGIN || "http://localhost:4000";
+app.use(express.json());
+app.use(
+  cors({ origin: CORS_ORIGIN, methods: ["GET", "POST"], credentials: true })
+);
+const server = http.createServer(app);
+const io = new SocketIO(server, {
+  cors: {
+    origin: CORS_ORIGIN,
+    methods: ["GET", "POST"],
+    credentials: true,
+  },
+  transports: ["websocket", "polling"],
+  allowRequest: (req, callback) => {
+    callback(null, true);
+  },
+});
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", CORS_ORIGIN);
+  res.header("Access-Control-Allow-Methods", "GET, POST");
+  res.header("Access-Control-Allow-Credentials", "true");
+  next();
+});
+app.get("/", (req, res) => {
+  res.send("Streaming backend is running");
+});
+// WebSocket Connection Handling
+io.on("connection", (socket) => {
+  console.log("Client connected:", socket.id);
+  let isStreaming = false; // Controls whether we process stream data
+  // Start Streaming
+  socket.on("start-stream", (streamKey) => {
+    if (!streamKey) {
+      socket.emit("error", "RTMP key is required");
+      return;
+    }
+    console.log(`Starting stream for RTMP key: ${streamKey}`);
+    startFFmpegStream(streamKey);
+    setTimeout(() => {
+      isStreaming = true; // Enable data processing
+    }, 3000);
+  });
+  // Receive Media Stream Data
+  socket.on("stream-data", (chunk) => {
+    if (isStreaming) {
+      console.log("Received stream data and writing to FFmpeg");
+      writeStreamData(chunk);
+    }
+  });
+  // Stop Streaming (Pause data without stopping MediaRecorder)
+  socket.on("stop-stream", () => {
+    console.log("Pausing stream data");
+    isStreaming = false;
+    stopFFmpegStream();
+  });
+  // Handle Disconnection
+  socket.on("disconnect", () => {
+    console.log("Client disconnected:", socket.id);
+  });
+});
+// Start Server
+server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
