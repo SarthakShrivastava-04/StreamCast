@@ -42,17 +42,25 @@ const Dashboard = () => {
           const recorder = new MediaRecorder(stream, {
             audioBitsPerSecond: 128000,
             videoBitsPerSecond: 2500000,
-            mimeType: "video/webm;codecs=vp8",
           });
           mediaRecorderRef.current = recorder;
 
-          recorder.ondataavailable = (event) => {
+          recorder.ondataavailable = async (event) => {
             if (event.data.size > 0 && isStreamingRef.current) {
-              socket.emit("stream-data", event.data);
+              const buffer = await event.data.arrayBuffer(); // Convert Blob → ArrayBuffer
+              
+              // Define max chunk size (e.g., 100KB)
+              const maxChunkSize = 20 * 1024; 
+          
+              for (let i = 0; i < buffer.byteLength; i += maxChunkSize) {
+                const chunk = buffer.slice(i, i + maxChunkSize); // Slice into smaller parts
+                console.log("Sending chunk of size:", chunk.byteLength);
+                socket.emit("stream-data", chunk);
+              }
             }
           };
-
-          recorder.start(25); // Capture every second
+          
+          recorder.start(5); // Capture every second at 1000
         }
       } catch (error) {
         console.error("Error accessing media devices:", error);
